@@ -2,6 +2,7 @@ import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {FC} from 'react';
 import {Color} from '../../../../const';
 import {_Text, _Icon, _View} from '../../../../components';
+import {Fonts} from '../../../../const/theme';
 
 interface SearchBarInterface {
   searchQuery: string;
@@ -19,7 +20,7 @@ const SearchBar: FC<SearchBarInterface> = ({
       paddings={{paddingHorizontal: 30, paddingVertical: 5}}
       style={styles.container}>
       <_View style={styles.subContainer}>
-        <_Icon family="Fontisto" name="search" size={15} color={Color.black} />
+        <_Icon family="Octicons" name="search" size={15} color={Color.black} />
         <TextInput
           value={searchQuery}
           onChangeText={setSearchQuery}
@@ -56,5 +57,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '90%',
     marginLeft: 5,
+    fontFamily: Fonts.regular,
   },
 });

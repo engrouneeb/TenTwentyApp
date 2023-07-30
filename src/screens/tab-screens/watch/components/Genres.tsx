@@ -1,29 +1,31 @@
-import {FC, Fragment} from 'react';
-import {ImageBackground, StyleSheet} from 'react-native';
+import {FC} from 'react';
+import {StyleSheet, ImageBackground} from 'react-native';
 import {Color, Fonts} from '../../../../const/theme';
-import {_Text, _Image} from '../../../../components';
+import {_Text, _View} from '../../../../components';
+import FastImage from 'react-native-fast-image';
 
 interface GenresInterface {
   title: string;
-  poster_path: string;
+  backgroundPic: string;
 }
 
-export const Genres: FC<GenresInterface> = ({title, poster_path}) => {
-  const imgBaseUrl = 'https://image.tmdb.org/t/p/original' + poster_path;
+export const Genres: FC<GenresInterface> = ({title, backgroundPic}) => {
   return (
-    <Fragment>
-      <_Image
-        imageStyle={styles.imageStyle}
-        uri={imgBaseUrl}
-        style={styles.img}
-        height={180}
-        width={'98%'}
-        resizeMode="cover"
-      />
-      <_Text color={Color.White} size={'med'} font={Fonts.regular}>
-        {title}
-      </_Text>
-    </Fragment>
+    <ImageBackground
+      imageStyle={styles.imageStyle}
+      source={{uri: backgroundPic}}
+      style={styles.img}
+      resizeMode="cover">
+      <_View style={styles.overlay}>
+        <_Text
+          numberOfLines={1}
+          color={Color.White}
+          size={'sml'}
+          font={Fonts.regular}>
+          {title}
+        </_Text>
+      </_View>
+    </ImageBackground>
   );
 };
 
@@ -33,12 +35,18 @@ const styles = StyleSheet.create({
   },
   img: {
     alignSelf: 'center',
-    width: '100%',
-    height: 180,
+    width: 180,
+    height: 105,
     marginHorizontal: 5,
+    marginBottom: 20,
+  },
+
+  overlay: {
+    borderRadius: 20,
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
     justifyContent: 'flex-end',
     paddingBottom: 15,
     paddingLeft: 10,
-    marginBottom: 5,
   },
 });

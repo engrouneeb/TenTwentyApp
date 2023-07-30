@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {RootNavigator} from './src/navigation/RootNavigator';

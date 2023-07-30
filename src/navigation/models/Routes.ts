@@ -1,6 +1,10 @@
 type ScreensWithoutParams = "More" | "Watch" | "Dashboard" | "Library";
 
-interface ScreensWithParams {}
+interface ScreensWithParams {
+  "movie-details": { id: string };
+  "cinema-hall": { id: string };
+  "seat-selection": { id: string };
+}
 
 export type Routes = keyof ScreensWithParams | ScreensWithoutParams;
 export type RouteParam<

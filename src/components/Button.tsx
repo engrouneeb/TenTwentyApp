@@ -16,6 +16,9 @@ interface OwnProps extends TouchableOpacityProps {
   loading?: boolean;
   showArrowBefore?: boolean;
   showArrowAfter?: boolean;
+  iconFamily?: string;
+  iconName?: string;
+  iconColor?: string;
 }
 
 type Props = OwnProps & SpacingProps;
@@ -30,6 +33,9 @@ export const _Button: React.FC<Props> = ({
   type = 'primary',
   showArrowBefore,
   showArrowAfter,
+  iconFamily,
+  iconName,
+  iconColor,
   ...rest
 }) => {
   const disabledType = `${type}Disabled` as keyof typeof styles;
@@ -52,7 +58,12 @@ export const _Button: React.FC<Props> = ({
   }
 
   return (
-    <View>
+    <View
+      style={{
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+      }}>
       <TouchableOpacity
         style={[
           styles.base,
@@ -64,11 +75,12 @@ export const _Button: React.FC<Props> = ({
         ]}
         disabled={disabled}
         {...rest}>
-        {showArrowBefore && (
+        {iconName && (
           <_Icon
-            family="AntDesign"
-            name="arrowright"
+            family={iconFamily}
+            name={iconName}
             style={{marginRight: 10}}
+            color={iconColor}
           />
         )}
         <_Text
@@ -77,13 +89,6 @@ export const _Button: React.FC<Props> = ({
           style={[textStyle, disabled && disabledTextStyle]}>
           {title}
         </_Text>
-        {showArrowAfter && (
-          <_Icon
-            family="AntDesign"
-            name="arrowright"
-            style={{marginLeft: 10}}
-          />
-        )}
       </TouchableOpacity>
     </View>
   );
@@ -95,12 +100,13 @@ const styles = StyleSheet.create({
     minWidth: 100,
     height: 50,
     borderRadius: 10,
-    alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
   },
   primary: {
-    backgroundColor: Color.Primary,
+    backgroundColor: Color.Secondary,
+    alignItems: 'center',
+    justifyContent: 'center',
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
@@ -121,11 +127,15 @@ const styles = StyleSheet.create({
     color: Color.Negative,
   },
   secondary: {
-    borderWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: Color.Secondary,
+    borderRadius: 5,
     backgroundColor: 'transparent',
   },
   secondaryText: {
-    color: Color.Primary,
+    color: Color.White,
   },
   secondaryDisabled: {},
   secondaryTextDisabled: {

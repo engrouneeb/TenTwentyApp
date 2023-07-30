@@ -1,104 +1,122 @@
 import React, {FC, useEffect, useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
-import {Background, _Screen, _View} from '../../../components';
+import {Background, _Screen} from '../../../components';
 import {Color} from '../../../const';
-import {Card, Header, SearchBar, Genres} from './components';
-import {Get} from '../../../services';
-import {ApiEndPoints} from '../../../services/api/apiendpoints';
+import {ApiEndPoints, Get} from '../../../services';
+import {Card, FlatlistHeader, Header, SearchBar} from './components';
+const imgBaseUrl = 'https://image.tmdb.org/t/p/original';
+
+interface responeInterface {
+  dates: Dates;
+  page: number;
+  results: Result[];
+  total_pages: number;
+  total_results: number;
+}
+
+interface Result {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
+interface Dates {
+  maximum: string;
+  minimum: string;
+}
 
 export const Watch: FC = () => {
   const [isSearchEnabled, setIsSearchEnabled] = useState(false);
+  const [numColumns, setNumColumns] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
-  const [list, setList] = useState([]);
-  const genres = [
-    {
-      id: 1,
-      name: 'Comedies',
-      thumbnail: 'https://picsum.photos/200/300/?blur',
-    },
-    {
-      id: 2,
-      name: 'Crime',
-      thumbnail: 'https://picsum.photos/200/300/?blur',
-    },
-    {
-      id: 3,
-      name: 'Family',
-      thumbnail: 'https://picsum.photos/200/300/?blur',
-    },
-    {
-      id: 4,
-      name: 'Documentaries',
-      thumbnail: 'https://picsum.photos/200/300/?blur',
-    },
-    {
-      id: 5,
-      name: 'Dramas',
-      thumbnail: 'https://picsum.photos/200/300/?blur',
-    },
-    {
-      id: 6,
-      name: 'Fantasy',
-      thumbnail: 'https://picsum.photos/200/300/?blur',
-    },
-    {
-      id: 7,
-      name: 'Holidays',
-      thumbnail: 'https://picsum.photos/200/300/?blur',
-    },
-    {
-      id: 8,
-      name: 'Horror',
-      thumbnail: 'https://picsum.photos/200/300/?blur',
-    },
-    {
-      id: 9,
-      name: 'Sci-Fi',
-      thumbnail: 'https://picsum.photos/200/300/?blur',
-    },
-    {
-      id: 10,
-      name: 'Thriller',
-      thumbnail: 'https://picsum.photos/200/300/?blur',
-    },
-  ];
-  useEffect(() => {
-    let params = {
-      api_key: 'dffba9561ac155546bdd3246e565be42',
-    };
-    Get(ApiEndPoints.getUpcomingMovie, params).then(res => {
-      if (res) setList(res?.results);
+  const [list, setList] = useState<Result[]>([]);
+  const [searchData, setSearchData] = useState<Result[]>([]);
+
+  const fetchData = () => {
+    Get(ApiEndPoints.getUpcomingMovie).then((res: responeInterface) => {
+      if (res) {
+        setSearchData(res?.results);
+        setList(res?.results);
+      }
     });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
+
   const handleSearch = () => {
-    console.log('first');
+    setNumColumns(2);
     setIsSearchEnabled(true);
   };
+
   const handleCloseSearch = () => {
+    setSearchQuery('');
+    setNumColumns(1);
     setIsSearchEnabled(false);
   };
+
+  const handleSearchQuery = (value: string) => {
+    if (value.length === 0) {
+      setList(searchData);
+    }
+    setSearchQuery(value);
+    if (value.length > 0) {
+      let filteredData = searchData.filter(movie =>
+        movie.title.toLowerCase().includes(value.toLowerCase()),
+      );
+      setList(filteredData);
+      setNumColumns(1);
+    } else {
+      setNumColumns(2);
+    }
+  };
+
   return (
-    <_Screen background={<Background color={Color.White} />} hideTopSafeArea>
+    <_Screen background={<Background color={Color.Negative} />} hideTopSafeArea>
       {isSearchEnabled ? (
         <SearchBar
-          setSearchQuery={setSearchQuery}
+          setSearchQuery={handleSearchQuery}
           searchQuery={searchQuery}
           handleCloseSearch={handleCloseSearch}
         />
       ) : (
         <Header handleSearch={handleSearch} />
       )}
-      <_View height={'85%'} justifyContent={'center'}>
-        <FlatList
-          contentContainerStyle={styles.flatList}
-          numColumns={1}
-          data={list}
-          renderItem={({item, index}) => (
-            <Card title={item.title} poster_path={item?.poster_path} />
-          )}
-          ItemSeparatorComponent={() => <View style={{height: 20}} />}
-        />
-      </_View>
+
+      <FlatList
+        key={numColumns}
+        showsVerticalScrollIndicator={false}
+        numColumns={numColumns}
+        data={list}
+        renderItem={({item, index}) => (
+          <Card
+            title={item.title}
+            backgroundPic={imgBaseUrl + item.poster_path}
+            isSearchEnabled={isSearchEnabled}
+            searchQuery={searchQuery}
+          />
+        )}
+        ListHeaderComponent={
+          <FlatlistHeader
+            isSearchEnabled={isSearchEnabled}
+            searchQuery={searchQuery}
+            numberOfResult={list.length}
+          />
+        }
+        ListFooterComponent={() => <View style={{height: 80}} />}
+      />
     </_Screen>
   );
 };
@@ -111,5 +129,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     paddingVertical: 10,
+    backgroundColor: Color.Gray + 30,
+    flex: 1,
   },
 });

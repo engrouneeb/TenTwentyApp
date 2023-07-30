@@ -16,7 +16,12 @@ const Header: FC<HeaderPropsInteface> = ({handleSearch}) => {
         Watch
       </_Text>
       <Pressable onPress={handleSearch}>
-        <_Icon family="Fontisto" name="search" size={20} color={Color.black} />
+        <_Icon
+          family="MaterialIcons"
+          name="search"
+          size={20}
+          color={Color.black}
+        />
       </Pressable>
     </_View>
   );
@@ -27,7 +32,6 @@ export {Header};
 const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
-
     justifyContent: 'space-between',
   },
 });

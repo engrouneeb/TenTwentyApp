@@ -8,6 +8,7 @@ const isTablet = DeviceInfo.isTablet();
 const Tab = createBottomTabNavigator<RoutesRecord>();
 import {_Icon, _Image} from '../components';
 import * as screens from '../screens';
+import {MyWatch} from './WatchNavigator';
 
 export const TabNavigator: FC = () => {
   const dashboard = require('assets/icons/dashboard.png');
@@ -54,7 +55,7 @@ export const TabNavigator: FC = () => {
         tabBarInactiveTintColor: Color.Gray,
       })}>
       <Tab.Screen name="Dashboard" component={screens.Dashboard} />
-      <Tab.Screen name="Watch" component={screens.Watch} />
+      <Tab.Screen name="Watch" component={MyWatch} />
       <Tab.Screen name="Library" component={screens.MediaLibrary} />
       <Tab.Screen name="More" component={screens.More} />
     </Tab.Navigator>
