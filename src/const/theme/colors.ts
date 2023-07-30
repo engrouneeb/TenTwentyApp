@@ -4,7 +4,7 @@ export enum Color {
   Secondary = "#60c3f2",
   Tertiary = "#032137",
   Danger = "#d93912",
-  PrimaryLight = "##f6f6fa",
+  PrimaryLight = "#f6f6fa",
   DangerLight = "#FDA484",
   Success = "#6da022",
   Negative = "#FFFFFF",

@@ -1,31 +1,39 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {combineReducers} from 'redux';
-import {DataInterface} from '../../interfaces';
-import {getUniqueId} from '../../utils';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
 
-const initialState: DataInterface[] = [];
+interface initialStateInterface {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
+const initialState: initialStateInterface[] = [];
 
 const AppReducer = createSlice({
-  name: 'appSlice',
+  name: "appSlice",
   initialState,
   reducers: {
-    addCategory: (state, action) => {},
-    removeCategory: (state, action) => {},
-    addAttribute: (state, action) => {},
-    removeAttribute: (state, action) => {},
-    addItem: (state, action) => {},
-    removeItem: (state, action) => {},
+    upComingMoviesList: (
+      state,
+      action: PayloadAction<initialStateInterface>,
+    ) => {
+      state.push(action.payload);
+    },
   },
 });
 
-export const {
-  addCategory,
-  removeCategory,
-  addAttribute,
-  removeAttribute,
-  addItem,
-  removeItem,
-} = AppReducer.actions;
+export const { upComingMoviesList } = AppReducer.actions;
 
 export const RootReducers = combineReducers({
   appSlice: AppReducer.reducer,

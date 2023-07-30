@@ -15,6 +15,7 @@ export const MyWatch: FC = () => {
       }}>
       <Stack.Screen name="Watch" component={screens.Watch} />
       <Stack.Screen name="movie-details" component={screens.MoveDetails} />
+      <Stack.Screen name="watch-trailer" component={screens.WatchTrailer} />
       <Stack.Screen name="cinema-hall" component={screens.CinemaHall} />
       <Stack.Screen name="seat-selection" component={screens.SeatSelection} />
     </Stack.Navigator>

@@ -32,15 +32,22 @@ const Header: FC<Props> = ({goBack}) => {
 };
 
 interface HeaderProps {
-  tagLine: string;
-  movieImage: string;
+  id: number;
+  tagLine: string | undefined;
+  movieImage: string | undefined;
 }
 
-export const TopHeader: FC<HeaderProps> = ({tagLine, movieImage}) => {
+export const TopHeader: FC<HeaderProps> = ({id, tagLine, movieImage}) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const URL = imgBaseUrl + movieImage;
   const goBack = () => {
     navigation.goBack();
+  };
+  const goToWatchTrailer = () => {
+    navigation.navigate('watch-trailer', {movie_id: id});
+  };
+  const goToCinemaDetails = () => {
+    navigation.navigate('cinema-hall', {movie_id: id});
   };
   return (
     <ImageBackground
@@ -67,17 +74,17 @@ export const TopHeader: FC<HeaderProps> = ({tagLine, movieImage}) => {
             style={styles.buttons}
             margins={{marginTop: 10}}
             title={'Get Tickets'}
-            onPress={() => navigation.navigate('cinema-hall')}
+            onPress={goToCinemaDetails}
           />
           <_Button
             type="secondary"
             style={styles.buttons}
             margins={{marginTop: 10}}
-            title={'Get Tickets'}
+            title={'Watch Trailer'}
             iconFamily="Entypo"
             iconName="controller-play"
             iconColor={Color.White}
-            onPress={() => navigation.navigate('home-screen')}
+            onPress={goToWatchTrailer}
           />
         </_View>
       </_View>
@@ -99,6 +106,7 @@ const styles = StyleSheet.create({
   img: {
     width: '100%',
     height: 380,
+    backgroundColor: Color.Gray,
   },
   headerContainer: {
     flexDirection: 'row',

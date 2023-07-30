@@ -4,6 +4,7 @@ interface ScreensWithParams {
   "movie-details": { movie_id: string };
   "cinema-hall": { movie_id: string };
   "seat-selection": { movie_id: string };
+  "watch-trailer": { movie_id: string };
 }
 
 export type Routes = keyof ScreensWithParams | ScreensWithoutParams;

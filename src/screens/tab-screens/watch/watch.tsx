@@ -4,6 +4,8 @@ import {Background, _Screen} from '../../../components';
 import {Color} from '../../../const';
 import {ApiEndPoints, Get} from '../../../services';
 import {Card, FlatlistHeader, Header, SearchBar} from './components';
+import {useDispatch} from 'react-redux';
+import {upComingMoviesList} from '../../../redux/reducers';
 const imgBaseUrl = 'https://image.tmdb.org/t/p/original';
 
 interface responeInterface {
@@ -42,12 +44,15 @@ export const Watch: FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [list, setList] = useState<Result[]>([]);
   const [searchData, setSearchData] = useState<Result[]>([]);
+  const dispatch = useDispatch<any>();
 
   const fetchData = () => {
     Get(ApiEndPoints.getUpcomingMovie).then((res: responeInterface) => {
       if (res) {
-        setSearchData(res?.results);
-        setList(res?.results);
+        const {results} = res;
+        dispatch(upComingMoviesList({results}));
+        setSearchData(results);
+        setList(results);
       }
     });
   };

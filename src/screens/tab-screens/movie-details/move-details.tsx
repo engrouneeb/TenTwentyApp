@@ -35,7 +35,7 @@ export const MoveDetails: FC<Props> = ({navigation, route}) => {
     "As a collection of history's worst tyrants and criminal masterminds gather to plot a war to wipe out millions, one man must race against time to stop them. Discover the origins of the very first independent intelligence agency in The King's Man. The Comic Book “The Secret Service” by Mark Millar and Dave Gibbons.";
   return (
     <_Screen background={<Background color={Color.Negative} />}>
-      <TopHeader tagLine={movieTagLine} movieImage={movieImage} />
+      <TopHeader id={movie_id} tagLine={movieTagLine} movieImage={movieImage} />
       <_View paddings={{padding: 40}}>
         <_Text
           margins={{marginTop: 20, marginBottom: 20}}

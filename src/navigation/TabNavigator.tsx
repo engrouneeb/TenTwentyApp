@@ -54,8 +54,8 @@ export const TabNavigator: FC = () => {
         tabBarActiveTintColor: Color.White,
         tabBarInactiveTintColor: Color.Gray,
       })}>
-      <Tab.Screen name="Dashboard" component={screens.Dashboard} />
       <Tab.Screen name="Watch" component={MyWatch} />
+      <Tab.Screen name="Dashboard" component={screens.Dashboard} />
       <Tab.Screen name="Library" component={screens.MediaLibrary} />
       <Tab.Screen name="More" component={screens.More} />
     </Tab.Navigator>

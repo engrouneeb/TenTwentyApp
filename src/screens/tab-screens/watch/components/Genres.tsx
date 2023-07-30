@@ -1,31 +1,43 @@
 import {FC} from 'react';
-import {StyleSheet, ImageBackground} from 'react-native';
+import {StyleSheet, ImageBackground, Pressable} from 'react-native';
 import {Color, Fonts} from '../../../../const/theme';
 import {_Text, _View} from '../../../../components';
 import FastImage from 'react-native-fast-image';
+import {
+  useNavigation,
+  NavigationProp,
+  ParamListBase,
+} from '@react-navigation/native';
 
 interface GenresInterface {
+  id: number;
   title: string;
   backgroundPic: string;
 }
 
-export const Genres: FC<GenresInterface> = ({title, backgroundPic}) => {
+export const Genres: FC<GenresInterface> = ({title, backgroundPic, id}) => {
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
+  const goToDetails = () => {
+    navigation.navigate('movie-details', {movie_id: id});
+  };
   return (
-    <ImageBackground
-      imageStyle={styles.imageStyle}
-      source={{uri: backgroundPic}}
-      style={styles.img}
-      resizeMode="cover">
-      <_View style={styles.overlay}>
-        <_Text
-          numberOfLines={1}
-          color={Color.White}
-          size={'sml'}
-          font={Fonts.regular}>
-          {title}
-        </_Text>
-      </_View>
-    </ImageBackground>
+    <Pressable onPress={goToDetails}>
+      <ImageBackground
+        imageStyle={styles.imageStyle}
+        source={{uri: backgroundPic}}
+        style={styles.img}
+        resizeMode="cover">
+        <_View style={styles.overlay}>
+          <_Text
+            numberOfLines={1}
+            color={Color.White}
+            size={'sml'}
+            font={Fonts.regular}>
+            {title}
+          </_Text>
+        </_View>
+      </ImageBackground>
+    </Pressable>
   );
 };
 

@@ -4,7 +4,13 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import React, {FC, useState} from 'react';
-import {FlatList, Pressable, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  FlatList,
+  Image,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {
   Background,
   _Button,
@@ -68,8 +74,18 @@ export const CinemaHall: FC = () => {
             styles.singleBookingCardChart,
             selectedCard == index && styles.selectedSingleBookingCardChart,
             selectedCard == index && styles.shadow,
-          ]}
-        />
+          ]}>
+          <Image
+            source={require('../../../assets/images/seat.png')}
+            resizeMode={'cover'}
+            style={{
+              width: 144,
+              height: 113,
+              overflow: 'hidden',
+              alignSelf: 'center',
+            }}
+          />
+        </_View>
         <_View style={styles.singleBookingCardPriceContainer}>
           <_Text style={styles.singleBookingCardLabel}>
             From
@@ -267,10 +283,11 @@ const styles = StyleSheet.create({
   singleBookingCardChart: {
     width: 300,
     height: 170,
-    backgroundColor: Color.White,
     borderRadius: 10,
     borderColor: Color.Gray,
     borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   selectedSingleBookingCardChart: {
     borderColor: Color.Secondary,

@@ -1,35 +1,48 @@
 import {FC} from 'react';
-import {ImageBackground, StyleSheet} from 'react-native';
+import {ImageBackground, Pressable, StyleSheet} from 'react-native';
 import {_Text, _View} from '../../../../components';
 import {Color, Fonts} from '../../../../const/theme';
+import {
+  useNavigation,
+  NavigationProp,
+  ParamListBase,
+} from '@react-navigation/native';
 
 interface UpcomingMoviesInterface {
+  id: number;
   title: string;
   backgroundPic: string;
 }
 
 const UpcomingMovies: FC<UpcomingMoviesInterface> = ({
+  id,
   title,
   backgroundPic,
 }) => {
+  const navigation: NavigationProp<ParamListBase> = useNavigation();
+  const goToDetails = () => {
+    navigation.navigate('movie-details', {movie_id: id});
+  };
   return (
-    <_View
-      justify="center"
-      align="center"
-      width={'96%'}
-      margins={{marginHorizontal: 10, marginTop: 10}}>
-      <ImageBackground
-        imageStyle={styles.imageStyle}
-        source={{uri: backgroundPic}}
-        style={styles.img}
-        resizeMode="cover">
-        <_View style={styles.overlay}>
-          <_Text color={Color.White} size={'med'} font={Fonts.regular}>
-            {title}
-          </_Text>
-        </_View>
-      </ImageBackground>
-    </_View>
+    <Pressable onPress={goToDetails}>
+      <_View
+        justify="center"
+        align="center"
+        width={'96%'}
+        margins={{marginHorizontal: 10, marginTop: 10}}>
+        <ImageBackground
+          imageStyle={styles.imageStyle}
+          source={{uri: backgroundPic}}
+          style={styles.img}
+          resizeMode="cover">
+          <_View style={styles.overlay}>
+            <_Text color={Color.White} size={'med'} font={Fonts.regular}>
+              {title}
+            </_Text>
+          </_View>
+        </ImageBackground>
+      </_View>
+    </Pressable>
   );
 };
 

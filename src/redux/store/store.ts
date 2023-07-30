@@ -1,25 +1,25 @@
 import {
   applyMiddleware,
   legacy_createStore as createStore,
-} from "@reduxjs/toolkit";
-import { createLogger } from "redux-logger";
-import { persistReducer, persistStore } from "redux-persist";
-import createSensitiveStorage from "redux-persist-sensitive-storage";
-import thunk from "redux-thunk";
-import { RootReducers } from "../reducers/reducer";
+} from '@reduxjs/toolkit';
+import {createLogger} from 'redux-logger';
+import {persistReducer, persistStore} from 'redux-persist';
+import createSensitiveStorage from 'redux-persist-sensitive-storage';
+import thunk from 'redux-thunk';
+import {RootReducers} from '../reducers/reducer';
 const LOGGER = createLogger();
 
 const sensitiveStorage = createSensitiveStorage({
-  keychainService: "DynamicApp_Task",
-  sharedPreferencesName: "DynamicApp_Task",
+  keychainService: 'TenTwenty_Task',
+  sharedPreferencesName: 'TenTwenty_Task',
 });
 
 const persistConfig = {
-  key: "Root",
+  key: 'Root',
   storage: sensitiveStorage,
   timeout: 0,
-  whitelist: [],
-  blacklist: ["appSlice"],
+  whitelist: ['appSlice'],
+  blacklist: [], //mention the reducers you don't want to persist
 };
 
 const store = createStore(
@@ -28,4 +28,4 @@ const store = createStore(
 );
 
 const persistor = persistStore(store);
-export { store, persistor };
+export {store, persistor};
