@@ -11,7 +11,7 @@ export enum Color {
 
   // Project specific additions
   TextDark = "#202C43",
-  TextLight = "#b5b5b5",
+  TextLight = "#8F8F8F",
   Gray = "#A5A4A2",
   White = "#FFFFFF",
   black = "#111111",

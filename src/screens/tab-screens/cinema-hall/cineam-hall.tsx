@@ -1,26 +1,20 @@
-import React, {FC, useState} from 'react';
 import {
-  Dimensions,
-  FlatList,
-  Pressable,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
+import React, {FC, useState} from 'react';
+import {FlatList, Pressable, StyleSheet, TouchableOpacity} from 'react-native';
 import {
   Background,
+  _Button,
+  _Icon,
   _Screen,
   _Text,
   _View,
-  _Icon,
-  _Button,
 } from '../../../components';
 import {Color} from '../../../const';
 import {Fonts} from '../../../const/theme';
-import {
-  useNavigation,
-  ParamListBase,
-  NavigationProp,
-} from '@react-navigation/native';
 
 export const CinemaHall: FC = () => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
@@ -250,7 +244,7 @@ const styles = StyleSheet.create({
 
   //singleCard
   signleBookingCardContainer: {
-    marginTop: 10,
+    marginTop: 30,
     paddingHorizontal: 10,
     height: '45%',
     justifyContent: 'center',

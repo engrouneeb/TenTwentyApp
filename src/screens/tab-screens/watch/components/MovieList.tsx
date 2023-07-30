@@ -13,12 +13,13 @@ import {
 interface MovieListInterface {
   title: string;
   backgroundPic: string;
+  id: number;
 }
 
-const MovieList: FC<MovieListInterface> = ({title, backgroundPic}) => {
+const MovieList: FC<MovieListInterface> = ({title, backgroundPic, id}) => {
   const navigation: NavigationProp<ParamListBase> = useNavigation();
   const goToDetails = () => {
-    navigation.navigate('movie-details');
+    navigation.navigate('movie-details', {movie_id: id});
   };
   return (
     <TouchableOpacity onPress={goToDetails} style={styles.container}>

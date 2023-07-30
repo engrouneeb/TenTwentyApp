@@ -52,7 +52,11 @@ export const _Screen: React.FC<Props> = ({
       {hideTopSafeArea && (
         <SafeAreaView style={{backgroundColor: topSafeAreaColor}} />
       )}
-      <StatusBar backgroundColor="transparent" barStyle={statusBarType} />
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle={statusBarType}
+      />
       <_View
         align={align}
         justify={justify}

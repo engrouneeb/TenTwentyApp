@@ -5,6 +5,7 @@ import {Color} from '../../../../const';
 import {Fonts} from '../../../../const/theme';
 import {Genres, MovieList, UpcomingMovies} from '.';
 interface CardInterface {
+  id;
   title: string;
   backgroundPic: string;
   isSearchEnabled: boolean;
@@ -12,6 +13,7 @@ interface CardInterface {
 }
 
 const Card: FC<CardInterface> = ({
+  id,
   title,
   backgroundPic,
   isSearchEnabled,
@@ -20,7 +22,7 @@ const Card: FC<CardInterface> = ({
   return isSearchEnabled == false ? (
     <UpcomingMovies title={title} backgroundPic={backgroundPic} />
   ) : isSearchEnabled && searchQuery.length > 0 ? (
-    <MovieList title={title} backgroundPic={backgroundPic} />
+    <MovieList title={title} backgroundPic={backgroundPic} id={id} />
   ) : (
     <Genres title={title} backgroundPic={backgroundPic} />
   );

@@ -6,16 +6,25 @@ import {Fonts} from '../../../../const/theme';
 import {ScrollView} from 'react-native-gesture-handler';
 
 interface Props {
-  data: [];
+  data: any[];
 }
+const tagColor: any = {
+  [0]: '#7396C9',
+  [1]: '#56CCC9',
+  [2]: '#594fa5',
+  [3]: '#d0a31e',
+  [4]: '#45C3F4',
+  [5]: '#94DDCF',
+  [6]: '#63A7B7',
+};
 export const Tags: FC<Props> = ({data}) => {
   return (
     <_View style={{flexDirection: 'row', with: '100%'}}>
-      {data.map((gener: any) => {
+      {data.map((gener: any, index: number) => {
         return (
-          <_View style={styles.background}>
+          <_View style={{...styles.tag, backgroundColor: tagColor[index]}}>
             <_Text color={Color.White} size={'tny'} font={Fonts.bold}>
-              Watch
+              {gener?.name}
             </_Text>
           </_View>
         );
@@ -24,11 +33,9 @@ export const Tags: FC<Props> = ({data}) => {
   );
 };
 const styles = StyleSheet.create({
-  background: {
-    width: 60,
+  tag: {
     height: 24,
     borderRadius: 16,
-    backgroundColor: Color.Secondary,
     paddingHorizontal: 5,
     justifyContent: 'center',
     alignItems: 'center',

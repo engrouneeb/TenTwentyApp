@@ -16,7 +16,7 @@ const UpcomingMovies: FC<UpcomingMoviesInterface> = ({
     <_View
       justify="center"
       align="center"
-      width={'100%'}
+      width={'96%'}
       margins={{marginHorizontal: 10, marginTop: 10}}>
       <ImageBackground
         imageStyle={styles.imageStyle}

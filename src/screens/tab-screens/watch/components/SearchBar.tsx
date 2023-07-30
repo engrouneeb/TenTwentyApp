@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: 30,
-    height: 60,
+    height: 50,
   },
   subContainer: {
     flexDirection: 'row',

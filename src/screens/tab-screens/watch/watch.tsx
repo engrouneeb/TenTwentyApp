@@ -102,6 +102,7 @@ export const Watch: FC = () => {
         data={list}
         renderItem={({item, index}) => (
           <Card
+            id={item.id}
             title={item.title}
             backgroundPic={imgBaseUrl + item.poster_path}
             isSearchEnabled={isSearchEnabled}
