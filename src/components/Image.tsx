@@ -1,47 +1,53 @@
-import { SpacingProps } from 'global-styles';
+import {SpacingProps} from 'global-styles';
 import React from 'react';
-import { Image, ImageProps } from 'react-native';
-import { _View } from 'components'
+import {_View} from 'components';
+import FastImage, {FastImageProps} from 'react-native-fast-image';
 
-
-interface OwnProps extends ImageProps {
-    radius?: number;
-    height?: any;
-    width?: any
+interface OwnProps extends FastImageProps {
+  radius?: number;
+  height?: any;
+  width?: any;
+  uri: any;
 }
 
 type Props = OwnProps & SpacingProps;
 
 export const _Image: React.FC<Props> = ({
-    height,
-    width,
-    radius,
-    style,
-    paddings,
-    margins,
-    ...rest
+  height,
+  width,
+  radius,
+  style,
+  paddings,
+  margins,
+  uri,
+  ...rest
 }) => {
-    return (
-        <_View
-            align="center"
-            justify="center"
-            paddings={paddings}
-            margins={margins}
-            height={height}
-            width={width}
-            style={[{ borderRadius: radius || 0 }, style]}
-        >
+  console.log({uri});
 
-            <Image
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                {...(rest as any)}
-                style={[
-                    { borderRadius: radius || 0 },
-                    height ? { height } : undefined,
-                    width ? { width } : undefined,
-                ]}
-            />
-
-        </_View>
-    );
+  return (
+    <_View
+      align="center"
+      justify="center"
+      paddings={paddings}
+      margins={margins}
+      height={height}
+      width={width}
+      style={[{borderRadius: radius || 0}, style]}>
+      <FastImage
+        source={{
+          uri: 'https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg',
+          priority: FastImage.priority.normal,
+          cache: FastImage.cacheControl.immutable,
+        }}
+        resizeMode={FastImage.resizeMode.contain}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        {...(rest as any)}
+        style={[
+          {borderRadius: radius || 0},
+          height ? {height} : undefined,
+          width ? {width} : undefined,
+        ]}
+      />
+    </_View>
+  );
 };
