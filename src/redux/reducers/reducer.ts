@@ -28,12 +28,16 @@ const AppReducer = createSlice({
       state,
       action: PayloadAction<initialStateInterface>,
     ) => {
-      state.push(action.payload);
+      state = [action.payload];
+    },
+
+    revertStore: (state) => {
+      state = [];
     },
   },
 });
 
-export const { upComingMoviesList } = AppReducer.actions;
+export const { upComingMoviesList, revertStore } = AppReducer.actions;
 
 export const RootReducers = combineReducers({
   appSlice: AppReducer.reducer,

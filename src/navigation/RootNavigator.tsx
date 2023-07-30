@@ -2,14 +2,14 @@ import React, {FC} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {TabNavigator} from './TabNavigator';
-
+import {MyWatch} from './WatchNavigator';
 export const RootNavigator: FC = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{headerShown: false, gestureEnabled: false}}>
-        <Stack.Screen name="home-screen" component={TabNavigator} />
+        <Stack.Screen name="home-screen" component={MyWatch} />
       </Stack.Navigator>
     </NavigationContainer>
   );

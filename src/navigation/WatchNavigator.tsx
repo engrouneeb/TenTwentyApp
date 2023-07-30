@@ -4,6 +4,7 @@ import {RoutesRecord} from './models';
 const Tab = createStackNavigator<RoutesRecord>();
 import {_Icon, _Image} from '../components';
 import * as screens from '../screens';
+import {TabNavigator} from './TabNavigator';
 
 const Stack = createStackNavigator<RoutesRecord>();
 
@@ -13,7 +14,7 @@ export const MyWatch: FC = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Watch" component={screens.Watch} />
+      <Stack.Screen name="Watch" component={TabNavigator} />
       <Stack.Screen name="movie-details" component={screens.MoveDetails} />
       <Stack.Screen name="watch-trailer" component={screens.WatchTrailer} />
       <Stack.Screen name="cinema-hall" component={screens.CinemaHall} />

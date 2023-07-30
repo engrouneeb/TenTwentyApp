@@ -1,4 +1,9 @@
-type ScreensWithoutParams = "More" | "Watch" | "Dashboard" | "Library";
+type ScreensWithoutParams =
+  | "home-screen"
+  | "More"
+  | "Watch"
+  | "Dashboard"
+  | "Library";
 
 interface ScreensWithParams {
   "movie-details": { movie_id: string };

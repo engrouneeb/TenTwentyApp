@@ -1,11 +1,11 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useState, useCallback} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {Background, _Screen} from '../../../components';
 import {Color} from '../../../const';
 import {ApiEndPoints, Get} from '../../../services';
 import {Card, FlatlistHeader, Header, SearchBar} from './components';
-import {useDispatch} from 'react-redux';
-import {upComingMoviesList} from '../../../redux/reducers';
+import {useDispatch, useSelector} from 'react-redux';
+import {upComingMoviesList, revertStore} from '../../../redux/reducers';
 const imgBaseUrl = 'https://image.tmdb.org/t/p/original';
 
 interface responeInterface {
@@ -42,9 +42,11 @@ export const Watch: FC = () => {
   const [isSearchEnabled, setIsSearchEnabled] = useState(false);
   const [numColumns, setNumColumns] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const dispatch = useDispatch<any>();
+  const {results} = useSelector((state: any) => state.appSlice);
   const [list, setList] = useState<Result[]>([]);
   const [searchData, setSearchData] = useState<Result[]>([]);
-  const dispatch = useDispatch<any>();
 
   const fetchData = () => {
     Get(ApiEndPoints.getUpcomingMovie).then((res: responeInterface) => {
@@ -53,12 +55,16 @@ export const Watch: FC = () => {
         dispatch(upComingMoviesList({results}));
         setSearchData(results);
         setList(results);
+      } else {
+        setSearchData(results);
+        setList(results);
       }
     });
   };
 
   useEffect(() => {
     fetchData();
+    // dispatch(revertStore());
   }, []);
 
   const handleSearch = () => {
